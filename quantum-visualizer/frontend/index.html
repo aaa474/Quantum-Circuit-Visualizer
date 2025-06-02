@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Circuit Visualizer</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Quantum Circuit Visualizer</h1>
+
+    <label for="numQubits">Number of Qubits:</label>
+    <input type="number" id="numQubits" min="1" value="2">
+
+    <h2>Add a Gate</h2>
+    <div id="gateBuilder">
+        
+        <label for="gateType">Gate:</label>
+        <select id="gateType">
+            <option value="h" title="Hadamard gate - creates superposition">Hadamard (h)</option>
+            <option value="x" title="Pauli-X gate - flips cubit state">Pauli-X (x)</option>
+            <option value="y" title="Pauli-Y gate - applies Pauli-Y rotation">Pauli-Y (y)</option>
+            <option value="z" title="Paulie-Z gate - applies Pauli-Z rotation">Pauli-Z (z)</option>
+            <option value="s" title="S gate - phase shift">Phase (s)</option>
+            <option value="t" title="T gate - π/8 phase shift">T (t)</option>
+            <option value="cx" title="CNOT gate - flips target if control is 1">CNOT (cx)</option>
+            <option value="cz" title="CZ gate - applies Z to target if control is 1">CZ (cz)</option>
+            <option value="rx" title="RX gate - rotates qubit around the X-axis">RX (rx)</option>
+            <option value="ry" title="RY gate - rotates qubit around Y-axis">RY (ry)</option>
+            <option value="rz" title="RZ gate - rotates qubit around Z-axis">RZ (rz)</option>
+        </select>
+
+        <label for="targetQubit">Target Qubit:</label>
+        <input type="number" id="targetQubit" min="0" aria-label="Target Qubit">
+
+        <label for="controlQubit">Control Qubit (if- needed):</label>
+        <input type="number" id="controlQubit" min="0" aria-label="Control Qubit">
+
+        <label for="thetaValue">Theta (for rotation):</label>
+        <input type="number" id="thetaValue" step="0.1" aria-label="Theta">
+
+        <button id="addGate">Add Gate</button>
+    </div>
+    <div id="tooltip" style="
+        position: absolute;
+        padding: 4px 8px;
+        background: rgba(0,0,0,0.8);
+        color: white;
+        border-radius: 4px;
+        font-size: 12px;
+        pointer-events: none;
+        visibility: hidden;
+        z-index: 10;">
+    </div>
+
+
+    <h3>Current Circuit</h3>
+    <button id="resetCircuit">Reset Circuit</button>
+    <pre id="circuitOutput">[]</pre>
+
+    <h3>Visual Circuit</h3>
+    <div id="legend" style="margin-top: 10px;">
+        <h4>Legend:</h4>
+
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <div style="background: #4CAF50; color: white; padding: 4px 8px; border-radius: 4px;">Single-Qubit Gates (H, X, Y, Z, S, T)</div>
+            <div style="background: #3498db; color: white; padding: 4px 8px; border-radius: 4px;">Rotation Gates (RX, RY, RZ)</div>
+            <div style="background: #e74c3c; color: white; padding: 4px 8px; border-radius: 4px;">Control Gates (CX, CZ)</div>
+        </div>
+        <h4>Draggable Gates: </h4>
+        <div id="gateLibrary">
+        <div class="draggable-gate" draggable="true" data-gate="h">H</div>
+        <div class="draggable-gate" draggable="true" data-gate="x">X</div>
+        <div class="draggable-gate" draggable="true" data-gate="y">Y</div>
+        <div class="draggable-gate" draggable="true" data-gate="z">Z</div>
+        <div class="draggable-gate" draggable="true" data-gate="s">S</div>
+        <div class="draggable-gate" draggable="true" data-gate="t">T</div>
+        <div class="draggable-gate" draggable="true" data-gate="cx">CX</div>
+        <div class="draggable-gate" draggable="true" data-gate="cz">CZ</div>
+        <div class="draggable-gate" draggable="true" data-gate="rx">RX</div>
+        <div class="draggable-gate" draggable="true" data-gate="ry">RY</div>
+        <div class="draggable-gate" draggable="true" data-gate="rz">RZ</div>
+        </div>
+    </div>
+    <div style="position: relative;">
+        <div id="visualCircuit"></div>
+        <svg id="connectionLines" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></svg>
+    </div>
+    <button id="runSimulation">Run Simulation</button>
+    <pre id="output"></pre>
+    <div id="blochContainer" style="margin-top: 15px;"></div>
+    <button id="downloadCircuit">Download Circuit JSON</button>
+    <input type="file" id="uploadCircuit" />
+
+    <canvas id="resultChart" width="400" height="200"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    
+</body>
+</html>

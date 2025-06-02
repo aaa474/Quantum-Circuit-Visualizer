@@ -1,0 +1,279 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+h1, h2, h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+label {
+    margin-right: 5px;
+}
+
+#gateBuilder {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#gateBuilder input,
+#gateBuilder select {
+    padding: 5px;
+}
+
+#gateBuilder button {
+    grid-column: span 2;
+}
+
+button {
+    padding: 8px 16px;
+    font-size: 1rem;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+button:active {
+    background-color: #3e8e41;
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#circuitOutput {
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#circuitOutput div {
+    background-color: #fff;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+pre {
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+#resultChart {
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    #gateBuilder {
+        grid-template-columns: 1fr;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+#visualCircuit span {
+    background-color: #4CAF50;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-left: 8px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+#visualCircuit span:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+#visualCircuit div {
+    padding: 5px 0;
+    border-top: 1px solid #ccc;
+    margin: 8px 0;
+}
+
+#visualCircuit, #circuitOutput {
+    margin-top: 15px;
+}
+
+#gateBuilder label, #gateBuilder select, #gateBuilder input {
+    margin-bottom: 5px;
+}
+
+#tooltip {
+  padding: 6px 10px;
+  background: rgba(0,0,0,0.85);
+  color: white;
+  border-radius: 6px;
+  font-size: 14px;
+  pointer-events: none;
+  visibility: hidden;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#tooltip.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(-5px);
+}
+
+#editForm input, #editForm select {
+    margin: 3px 0;
+    padding: 3px 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 60px;
+}
+
+#editForm button {
+    margin: 4px 2px 0 0;
+    padding: 4px 8px;
+    font-size: 12px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#editForm button:hover {
+    background: #4CAF50;
+    color: white;
+}
+
+@media (max-width: 768px) {
+  body {
+    margin: 10px;
+    font-size: 0.95rem;
+  }
+
+  #gateBuilder {
+    grid-template-columns: 1fr;
+  }
+
+  #gateBuilder button,
+  #resetCircuit,
+  #runSimulation,
+  #downloadCircuit {
+    width: 100%;
+    margin-top: 5px;
+  }
+
+  #visualCircuit {
+    overflow-x: auto;
+  }
+
+  #visualCircuit > div {
+    min-width: 60px;
+  }
+
+  canvas#resultChart {
+    max-width: 100%;
+  }
+
+  #editForm {
+    font-size: 0.9rem;
+    width: auto;
+  }
+
+  #editForm input {
+    width: 50px;
+  }
+}
+
+#visualCircuit .gate {
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin: 4px;
+  color: white;
+  cursor: grab;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+#visualCircuit .gate:hover {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+.draggable-gate {
+  color: white;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: grab;
+  margin: 5px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.draggable-gate:hover {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+
+#visualCircuit > div[data-qubit]:hover {
+  outline: 2px dashed #888;
+  background-color: #f0f0f0;
+}
+
+#visualCircuit .drag-hover {
+  outline: 2px dashed #3498db;
+  background-color: #e0f7fa;
+}
+
+#gateLibrary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.h, .x, .y, .z, .s, .t,
+.draggable-gate[data-gate="h"], .draggable-gate[data-gate="x"],
+.draggable-gate[data-gate="y"], .draggable-gate[data-gate="z"],
+.draggable-gate[data-gate="s"], .draggable-gate[data-gate="t"] {
+  background-color: #4CAF50;
+}
+
+.rx, .ry, .rz,
+.draggable-gate[data-gate="rx"], .draggable-gate[data-gate="ry"],
+.draggable-gate[data-gate="rz"] {
+  background-color: #3498db;
+}
+
+.cx, .cz,
+.draggable-gate[data-gate="cx"], .draggable-gate[data-gate="cz"] {
+  background-color: #e74c3c;
+}
