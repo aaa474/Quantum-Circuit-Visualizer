@@ -58,6 +58,7 @@ quantum-visualizer
   CX gate with Qubit 0 as control, Qubit 1 as target
   RX gate on Qubit 1 with theta = 1.57
 
+
 **NOTE:**
 
 There is still a lot more stuff I want to add for this project in the future including better visuals, 3D models, and certain functions to make this website more efficient and user-friendly so they can use it to learn more about quantum computing. I'll update this README file with any new updates in an update log below moving forward!
